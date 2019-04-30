@@ -1,3 +1,17 @@
+<?php
+session_start();
+// Вывод сообщений ошибки/обновление БД
+if (isset($_SESSION['message_good']) or isset($_SESSION['message_no_good'])){
+if (isset($_SESSION['message_good'])){
+echo "<script>alert(\"".$_SESSION['message_good']."\");</script>";
+$_SESSION['message_good'] = null;
+}
+elseif (isset($_SESSION['message_no_good'])){
+echo "<script>alert(\"".$_SESSION['message_no_good']."\");</script>";
+$_SESSION['message_no_good'] = null;
+}
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,20 +28,6 @@
 </body>
 </html>
 
-<?php
-session_start();
-// Вывод сообщений ошибки/обновление БД
-if (isset($_SESSION['message_good']) or isset($_SESSION['message_no_good'])){
-    if (isset($_SESSION['message_good'])){
-        echo "<script>alert(\"".$_SESSION['message_good']."\");</script>";
-        $_SESSION['message_good'] = null;
-    }
-    elseif (isset($_SESSION['message_no_good'])){
-        echo "<script>alert(\"".$_SESSION['message_no_good']."\");</script>";
-        $_SESSION['message_no_good'] = null;
-    }
-}
-?>
 
 
 
