@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // строка, которую будем записывать
 $text = <<< HTML
 <!DOCTYPE html>
@@ -60,5 +60,11 @@ $fp = fopen("file.php", "w");
 // записываем в файл текст
 fwrite($fp, $text);
 
+
+
 // закрываем
 fclose($fp);
+
+$_SESSION['message_no_good'] .= 'создан "Файл 2" с API \n';
+header("Location: ".$_SERVER["HTTP_REFERER"]);
+exit;
