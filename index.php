@@ -29,7 +29,7 @@ $_SESSION['message_no_good'] = null;
 
 <form id="test_php" action="new_test_file.php" method="POST">
 
-Создаем новый с СОДОМ из ПОЛЯ тестовый фаил "test.php" <input type="submit" value="создаем &quot;test.php&quot;" /><br>
+Создаем новый с КОДОМ из ПОЛЯ тестовый фаил "test.php" <input type="submit" value="создаем &quot;test.php&quot;" /><br>
 Создаем новый ПУСТОЙ тестовый фаил "test.php" <a href="new_test_file.php">создаем "test.php"</a><br>
     <textarea class="form-code-test"  placeholder="тут текст кода"  name="text_code" name="comment" required=""></textarea>
 
