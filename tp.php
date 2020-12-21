@@ -1,6 +1,8 @@
 <?php
 session_start();
 // строка, которую будем записывать
+//$file_name = "api/1.php";
+$file_name = "api/".$_POST['file_name'].".php";
 $text = <<< HTML
 <!DOCTYPE html>
 <html>
@@ -53,18 +55,41 @@ $text = <<< HTML
   </body>
 </html>
 HTML;
-// открываем файл, если файл не существует,
-//делается попытка создать его
-$fp = fopen("file.php", "w");
 
-// записываем в файл текст
-fwrite($fp, $text);
+
+// проверка на существование файла
+if (file_exists($file_name)) {
+
+    // показываем имя файла
+    $path_parts = pathinfo($file_name);
+
+
+
+    $_SESSION['message_no_good'] .= 'Файл '. $path_parts['basename'] .' существует. - Создать \"Файл '.$file_name.'\" с API \n не удалось';
+    header("Location: ".$_SERVER["HTTP_REFERER"]);
+    exit;
+} else {
+    // показываем имя файла
+    $path_parts = pathinfo($file_name);
+
+
+    //делается попытка создать его
+    $fp = fopen($file_name, "w");
+
+    // записываем в файл текст
+    fwrite($fp, $text);
 // закрываем
-fclose($fp);
+    fclose($fp);
 
-$_SESSION['message_no_good'] .= 'создан \"Файл 2\" с API \n';
-header("Location: ".$_SERVER["HTTP_REFERER"]);
-exit;
+    $_SESSION['message_good'] .= 'Файл'. $path_parts['basename'] .'НЕ существует. - Создан \"Файл '.$file_name.'\" с API \n';
+    header("Location: ".$_SERVER["HTTP_REFERER"]);
+    exit;
+}
+
+
+
+
+
 
 
 
