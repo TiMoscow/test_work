@@ -1,79 +1,164 @@
 <?php
-session_start();
-// Вывод сообщений ошибки/обновление/удачно
-if (isset($_SESSION['message_good']) or isset($_SESSION['message_no_good'])) {
-    if (isset($_SESSION['message_good'])) {
-
-        if (is_array($_SESSION['message_good'])) {
-            echo "<script>alert(\"";
-            foreach ($_SESSION['message_good'] as $key => $value) {
-                echo $value;
-            }
-            echo "OK\")</script>";
-        } elseif (!is_array($_SESSION['message_good'])) {
-            echo "<script>alert(\"" . $_SESSION['message_good'] . " OK\")</script>";
-        }
-
-        $_SESSION['message_good'] = null;
-    } elseif (isset($_SESSION['message_no_good'])) {
-        echo "<script>alert(\"" . $_SESSION['message_no_good'] . " NO OK\")</script>";
-        $_SESSION['message_no_good'] = null;
-    }
-}
+require($_SERVER["DOCUMENT_ROOT"] . "/templates/header.php");
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Test work</title>
-    <link rel="stylesheet" type="text/css" href="stile.css">
-</head>
-<body>
-<br><br><br><br>
-<form action="tp.php" method="POST">
-    Имя файла
-    <input class=""   type="text" size="40" placeholder="Имя файла"  name="file_name" required="">
-<!--Закрытый файл(для примера работы, он открыт) создает "Файл 2" с API: <a href="tp.php">Фаил 1</a><br>-->
-    Создаем новый API с именем файла из ПОЛЯ "test.php. В папке "API". <input type="submit" value="создаем API" /><br>
-</form>
 
-<form action="delite.php" method="POST">
-    Имя файла на удаление<br>
-    <select size="10" multiple required name="delite_file[]">
-        <option disabled>выберете файл</option>
-        <?
-        if ($handle = opendir('api')) {
-            while (false !== ($file = readdir($handle))) {
-                if ($file != "." && $file != "..") {
+<div class="container my-5">
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-md-6 my-2 my-md-0">
+            <div class="card h-100">
+                <h5 class="card-header">Готовый код API</h5>
+                <div class="card-body">
+                    <form action="tp.php" method="POST">
+                        <div class="container">
+                            <div class="row justify-content-md-center my-3">
+                                <div class="col col-md-auto">
+                                    Создаем новый файл. В папке "code_api".
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center my-3">
+                                <div class="col-12 col-md-9">
+                                    <input class="form-control form-control-sm" type="text" size="40"
+                                           placeholder="Имя файла"
+                                           name="api_file_name"
+                                           required="">
+                                </div>
+                                <div class="ccol-12 col-md-3 d-grid gap-2 h-100 my-2 my-md-0">
+                                    <button type="submit" name="submit_api_create" class="btn btn-outline-custom-theme-custom-orange btn-sm">
+                                        <i class="bi bi-file-earmark-check"></i>
+                                        Создаем
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
-                    echo "<option value=" . $file . ">" . $file . "</option>";
-                }
-            }
-            closedir($handle);
-        }
-        ?>
-    </select>
-    <br />
-    Удалить файл/ы с папки "API" : <input type="submit" value="Удалить файл созданны в 'API'" /><br>
-</form>
-<br><br><br>
+                    <form action="tp.php" method="POST">
+                        <div class="container">
+                            <div class="row justify-content-md-center my-3">
+                                <div class="col col-md-auto">
+                                    Удалить файл/ы из папки "code_api"
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center my-3">
+                                <div class="col-12 col-md-9">
+                                    <select size="5" class="form-select form-select-sm" multiple required
+                                            name="file[]">
+                                        <option disabled>выберите файл(ы)</option>
+                                        <?php
+                                        if ($handle = opendir('code_api')) {
+                                            while (false !== ($file = readdir($handle))) {
+                                                if ($file != "." && $file != "..") {
 
-<!--Файл созданный файлом "Файл 1" : <a href="api/file.php">Фаил 2</a><br>-->
-<!--Закрытый файл "Файл 3" (.htaccess) : <a href="closed.php">Фаил 3</a><br>-->
-Перенаправление (редирект) на главную страницу "Файл 4" (.htaccess) : <a href="closed2.php">Фаил 4</a><br><br><br><br>
+                                                    echo "<option value=" . $file . ">" . $file . "</option>";
+                                                }
+                                            }
+                                            closedir($handle);
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-3 d-grid gap-2 h-100 my-2 my-md-0">
+                                    <button type="submit" name="submit_api_delete" class="btn btn-outline-custom-theme-custom-orange btn-sm">
+                                        <i class="bi bi-file-earmark-excel"></i>
+                                        Удалить
+                                    </button>
+                                    <button type="submit" name="submit_api_open" class="btn btn-outline-custom-theme-custom-orange btn-sm mt-2">
+                                        <i class="bi bi-box-arrow-in-up"></i>
+                                        Открыть *
+                                    </button>
+                                </div>
+                                * Открываем одну ссылку!
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-<form id="test_php" action="new_test_file.php" method="POST">
+        <div class="col-12 col-md-6 my-2 my-md-0">
+            <div class="card h-100">
+                <h5 class="card-header">Тест кода</h5>
+                <div class="card-body">
+                    <form id="test_php" action="tp.php" method="POST">
+                        <div class="container">
 
-Создаем новый с КОДОМ из ПОЛЯ тестовый фаил "test.php (&lt;?php уже есть)" <input type="submit" value="создаем &quot;test.php&quot;" /><br>
-Создаем новый ПУСТОЙ тестовый фаил "test.php" <a href="new_test_file.php">создаем "test.php"</a><br>
-    <textarea class="form-code-test"  placeholder="тут текст кода"  name="text_code" name="comment" required=""></textarea>
+                            <div class="row justify-content-md-center my-3">
+                                <div class="col col-md-auto">
+                                    Создаем новый тестовый файл с КОДОМ из ПОЛЯ "тут код" (Тег php уже есть)
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center my-3">
+                                <div class="col-12 col-md-9">
 
-<!--    <input  class="form-code-test"  placeholder="тут текст кода"  name="text_code" type="text" size ="5" required="">-->
-</form>
-Просто открыть посмотреть "test.php" <a href="test.php">открываем "test.php"</a><br>
-УДАЛИТЬ "test.php": <a href="delite_new_test_file.php">УДАЛИТЬ</a><br>
-</body>
-</html>
+                                    <div class="mb-3">
+                                        <input type="text" name="name_code" class="form-control" id="formGroupExampleInput"
+                                               placeholder="Код №1">
+                                    </div>
+
+                                    <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here"  required="" id="floatingTextarea"
+                                          name="text_code"></textarea>
+                                        <label for="floatingTextarea">тут код</label>
+                                    </div>
+
+                                </div>
+                                <div class="col-12 col-md-3 d-grid gap-2 h-100 my-2 my-md-0">
+                                    <button type="submit" name="submit_code_create" class="btn btn-outline-custom-theme-custom-orange btn-sm">
+                                        <i class="bi bi-file-earmark-check"></i>
+                                        Создаем
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form action="tp.php" method="POST">
+                        <div class="container">
+                            <div class="row justify-content-md-center my-3">
+                                <div class="col col-md-auto">
+                                    Удалить файл/ы из папки "code"
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center my-3">
+                                <div class="col-12 col-md-9">
+                                    <select size="5" id="form_code" class="form-select form-select-sm" multiple required
+                                            name="file[]">
+                                        <option disabled>выберите файл(ы)</option>
+                                        <?php
+                                        if ($handle = opendir('code')) {
+                                            while (false !== ($file = readdir($handle))) {
+                                                if ($file != "." && $file != "..") {
+
+                                                    echo "<option value=" . $file . ">" . $file . "</option>";
+                                                }
+                                            }
+                                            closedir($handle);
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-3 d-grid gap-2 h-100 my-2 my-md-0">
+                                    <button type="submit" name="submit_code_delete" class="btn btn-outline-custom-theme-custom-orange btn-sm">
+                                        <i class="bi bi-file-earmark-excel"></i>
+                                        Удалить
+                                    </button>
+                                    <button type="submit" name="submit_code_open" class="btn btn-outline-custom-theme-custom-orange btn-sm">
+                                        <i class="bi bi-box-arrow-in-up"></i>
+                                        Окрыть *
+                                    </button>
+                                </div>
+                                * Открываем одну ссылку!
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<?php
+require($_SERVER["DOCUMENT_ROOT"] . "/templates/footer.php");
+?>
 
 
 

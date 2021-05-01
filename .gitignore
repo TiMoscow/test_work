@@ -1,2 +1,9 @@
 .idea
-api/file.php
+/node_modules/
+/sass/styles_fonts.css.map
+/sass/styles_fonts.min.css
+/sass/custom_bootstrap.css.map
+/sass/custom_bootstrap.min.css
+/Code_examples/
+/code/
+/code_api/

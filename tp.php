@@ -1,90 +1,73 @@
 <?php
-session_start();
-// строка, которую будем записывать
-//$file_name = "api/1.php";
-$file_name = "api/".$_POST['file_name'].".php";
-$text = <<< HTML
-<!DOCTYPE html>
-<html>
-  <body>
-    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <div id="player"></div>
+if (file_exists(__DIR__ . '/user_library/safe_file.php')) {
+    require_once(__DIR__ . '/user_library/safe_file.php');
+}
 
-    <script>
-      // 2. This code loads the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
+use TiMoscow\operations_file;
 
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          height: '360',
-          width: '640',
-          videoId: 'M7lc1UVf-VE',
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
+if (isset($_POST['submit_api_create']) and isset($_POST['api_file_name']) or isset($_POST['submit_code_create']) and isset($_POST['text_code'])) { // создаем файл с api
 
-      // 4. The API will call this function when the video player is ready.
-      function onPlayerReady(event) {
-        event.target.playVideo();
-      }
 
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
-      var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
+    if (isset($_POST['submit_api_create'])) {
+        $dir_f = "code_api";
+        $file_name = htmlspecialchars($_POST['api_file_name']);
+        $text_api = file_get_contents('include/test_api.php', true); // берем код из файла
+        if (operations_file::checking_the_file($dir_f, $file_name, $text_api)) {
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit;
+        } else {
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit;
         }
-      }
-      function stopVideo() {
-        player.stopVideo();
-      }
-    </script>
-  </body>
-</html>
-HTML;
 
+    } elseif (isset($_POST['submit_code_create'])) {
+        $dir_f = "code";
+        $file_name = htmlspecialchars($_POST['name_code']);
 
-// проверка на существование файла
-if (file_exists($file_name)) {
+        $text_code = <<< HTML
+        <a href="/">Назад</a><br>
+        <?php
 
-    // показываем имя файла
-    $path_parts = pathinfo($file_name);
+        HTML;
+        $text_code .= $_POST['text_code'];
 
+        if (operations_file::checking_the_file($dir_f, $file_name, $text_code)) {
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit;
+        } else {
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit;
+        }
+    }
+} elseif (isset($_POST['submit_api_delete']) or isset($_POST['submit_code_delete']) or isset($_POST['submit_code_open']) or isset($_POST['submit_api_open']) and isset($_POST['file'])) { // Удаляем созданные файлы с api
 
+    $file = $_POST['file'];
+    if (isset($_POST['submit_api_delete']) or isset($_POST['submit_api_open'])) {
+        $dir_f = "code_api";
+    } elseif (isset($_POST['submit_code_delete']) or isset($_POST['submit_code_open'])) {
+        $dir_f = "code";
+    }
+    if (isset($_POST['submit_api_open']) or isset($_POST['submit_code_open'])) {
+        header("location:".$dir_f."/".$file[0]);
+        exit;
+    }
 
-    $_SESSION['message_no_good'] .= 'Файл '. $path_parts['basename'] .' существует. - Создать \"Файл '.$file_name.'\" с API \n не удалось';
-    header("Location: ".$_SERVER["HTTP_REFERER"]);
-    exit;
-} else {
-    // показываем имя файла
-    $path_parts = pathinfo($file_name);
+    $arr =  operations_file::delite_file($dir_f, $file);
 
-
-    //делается попытка создать его
-    $fp = fopen($file_name, "w");
-
-    // записываем в файл текст
-    fwrite($fp, $text);
-// закрываем
-    fclose($fp);
-
-    $_SESSION['message_good'] .= 'Файл'. $path_parts['basename'] .'НЕ существует. - Создан \"Файл '.$file_name.'\" с API \n';
-    header("Location: ".$_SERVER["HTTP_REFERER"]);
+    $_SESSION['message_good'] = $arr;
+    header("Location: " . $_SERVER["HTTP_REFERER"]);
     exit;
 }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'GerberaBolds';
+    src: local('Gerbera Bold'), local('Gerbera-Bold'),
+        url('Gerbera-Bold.woff2') format('woff2'),
+        url('Gerbera-Bold.woff') format('woff'),
+        url('Gerbera-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
