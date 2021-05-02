@@ -1,0 +1,13 @@
+{
+  "name": "test_work",
+  "description": "The project is designed as a test site for code testing.",
+  "version": "0.1.0",
+  "minimum-stability": "beta",
+  "dependencies": {
+    "bootstrap": "^5.0.0-beta3",
+    "bootstrap-icons": "^1.4.1"
+  },
+  "devDependencies": {
+    "csso-cli": "^3.0.0"
+  }
+}

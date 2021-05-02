@@ -1,0 +1,94 @@
+/*# //// custom scss/css v0.1.43 //// */
+
+
+///////////////////////////// fonts START/////////////////////////////
+//@import "styles_fonts.scss";                                      //
+///////////////////////////// fonts END///////////////////////////////
+
+///////////////////////////// bootstrap functions/variables/mixins START/////////////////////////////
+@import "../node_modules/bootstrap/scss/functions";                                                //
+@import "../node_modules/bootstrap/scss/variables";                                                //
+@import "../node_modules/bootstrap/scss/mixins";                                                   //
+//@import "../../../../libs/bootstrap/scss/utilities";                                             //
+///////////////////////////// bootstrap functions/variables/mixins END///////////////////////////////
+//// variable overrides scss + your variable
+//
+
+//containers
+//$grid-breakpoints: (
+//        xs:                         0,
+//        sm:                         576px,
+//        md:                         768px,
+//        lg:                         992px,
+//        xl:                         1400px,
+//        xxl:                        1700px
+//);
+//$container-max-widths: (
+//        sm:                         540px,
+//        md:                         720px,
+//        lg:                         960px,
+//        xl:                         1320px,
+//        xxl:                        1667px
+//);
+
+//font weight
+$font-weight-bolder:         700;
+
+//color
+$custom-color-white:                rgba(255, 255, 255, 1); // color white
+$transparent:                       rgba(255, 255, 255, 0); // color transparent
+$custom-secondary-ds-color:         #909090; // color secondary ds
+$custom-color-red-rgba:             rgba(155, 47, 50, 1); // color red (rgba)
+$custom-color-red:                  #9b2f32; // color red (HEX)
+$red:                               #9b2f32; // L>> Replace Color ($red:     #dc3545 !default;)
+$custom-orange:                     $orange-500;
+
+///////////////////////////// creative custom map START/////////////////////////////////////////////
+// creative custom map                                                                            //
+$custom-colors: (                                                                                 //
+        "custom-secondary-ds": $custom-secondary-ds-color,                                        //
+        "custom-secondary-gray-200": $gray-200,                                                   //
+        "custom-dark-full": #000,                                                                 //
+        "custom-red": #9b2f32,                                                                    //
+        "custom-red-original": #ff0004,                                                           //
+        "custom-background-darkening": #0000004d,                                                 //
+        "custom-orange": $custom-orange                                                           //
+);                                                                                                //
+$custom-theme-colors: (                                                                           //
+        "custom-theme-secondary-ds": $custom-secondary-ds-color,                                  //
+        "custom-theme-secondary-gray-200": $gray-200,                                             //
+        "custom-theme-dark-full": #000,                                                           //
+        "custom-theme-red": #9b2f32,                                                              //
+        "custom-theme-red-original": #ff0004,                                                     //
+        "custom-theme-custom-background-darkening": #0000004d,                                    //
+        "custom-theme-custom-orange": $custom-orange                                              //
+);                                                                                                //
+// union map                                                                                      //
+$colors: map-merge($colors, $custom-colors);                                                      //
+$theme-colors: map-merge($theme-colors, $custom-theme-colors);                                    //
+///////////////////////////// creative custom map END///////////////////////////////////////////////
+
+///////////////////////////// bootstrap ALL CSS START///////////////////////////////////////////////
+@import "../node_modules/bootstrap/scss/bootstrap";                                              //
+///////////////////////////// bootstrap ALL CSS END/////////////////////////////////////////////////
+
+/*# ///////////////////////// custom styles scss/css /////////////////////////////////////////////*/
+
+// Safari (browser optimization)
+.row:before, .row:after{
+  display: none;
+}
+
+// opacity ens z-index
+$i: 10;
+@while $i > -1 {
+  .opacity-#{$i} { opacity: 0.1 * $i !important; }
+  .z-index-#{$i} { z-index: 10 * $i !important; }
+  $i: $i - 1;
+}
+
+// width end height forms
+.form-code-test {
+  width: 300px;
+  height: 100px;
+}
