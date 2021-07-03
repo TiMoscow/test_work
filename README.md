@@ -25,9 +25,29 @@
 | Класс / методы        |   Тип  | Описание
 | --------------------- | ------ | ------------------------------------------------------
 | DeleteSafeFile        | Класс  | Класс по работе с файлами.
-| safeFile              | Метод  | Проверка файлов/директорй, создание файлов/директорий.
+| safeFile              | Метод  | Проверка файлов/директорий, создание файлов/директорий.
 | deliteFile            | Метод  | Проверка файлов, удаление файлов.
-| urlSafeFile           | Метод  | Прием свойств, проверка, сообщения.
+| urlSafeFile           | Метод  | Прием свойств, обработка, взаимодействие с методом safeFile.
+
+### Таймен для подсчета времени работы скрипта
+src/Time/TimerScript.php
+
+| Класс / методы        |   Тип  | Описание
+| --------------------- | ------ | ------------------------------------------------------
+| TimerScript           | Класс  | Класс таймера сриптов.
+| start                 | Метод  | Начпло таймера
+| finish                | Метод  | Конец таймера / Подсчет
+| getFinish             | Метод  | Вывод результатов
+
+Пример:
+```php
+TimerScript::start(); //Начало таймера
+echo 'Хеш: ' . password_hash("пароль", PASSWORD_DEFAULT,["cost" => 11]); // любой скрип
+TimerScript::finish(); // Конец таймера
+
+echo "<br>".TimerScript::getFinish().' сек.'; // вывод результата таймера
+```
+
 
 ### Быстрый старт
 Установите библиотеки с помощью [Node.js](https://nodejs.org/):
@@ -36,24 +56,12 @@
 
 
 
-### Требование системе
-* PHP:                ^7.4 (~^5.6*|~^7.0**)
+### Требования к системе
+* PHP:                ^7.4 (^7.0*)
 * GD WebP Support:    enabled
 
 
 
-#### PHP 5.6* 
-* В файле: src/FileOperations/DeleteSafeFile.php
-* Измените на это:
-```php
-        //$dir    ??= 'temp'; // php ^7.4
-        //$dir    = $dir ?? 'temp'; // php ^7.0
-        $dir = isset($dir) && $dir !== ''  ? $dir : 'temp'; // php ^5.6
-
-        //$text   ??= 'text_stub'; // php ^7.4
-        //$text    = $text ?? 'text_stub'; // php ^7.0
-        $text = isset($text) && $text !== ''  ? $text : 'text_stub'; // php ^5.6
-```
 
 #### PHP 7.0**  
 * В файле: src/FileOperations/DeleteSafeFile.php
@@ -61,14 +69,12 @@
 ```php
         //$dir    ??= 'temp'; // php ^7.4
         $dir    = $dir ?? 'temp'; // php ^7.0
-        //$dir = isset($dir) && $dir !== ''  ? $dir : 'temp'; // php ^5.6
 
         //$text   ??= 'text_stub'; // php ^7.4
         $text    = $text ?? 'text_stub'; // php ^7.0
-        //$text = isset($text) && $text !== ''  ? $text : 'text_stub'; // php ^5.6
 ```
 
 
-### Start project: 
+### Старт проекта: 
 30.04.2019
 

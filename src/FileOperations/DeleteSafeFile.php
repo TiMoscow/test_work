@@ -86,11 +86,9 @@ class DeleteSafeFile
     {
         $dir    ??= 'temp'; // php ^7.4
         //$dir    = $dir ?? 'temp'; // php ^7.0
-        //$dir = isset($dir) && $dir !== ''  ? $dir : 'temp'; // php ^5.6
         $file = isset($file) && $file !== ''  ? $file : 'without_name_file'; // 0, '', NULL -> true
         $text   ??= 'text_stub'; // php ^7.4
         //$text    = $text ?? 'text_stub'; // php ^7.0
-        //$text = isset($text) && $text !== ''  ? $text : 'text_stub'; // php ^5.6
 
         if (file_put_contents(self::safeFile( $dir . "/" . $file. ".php"), $text)) {
             $arr = 'Файл \"' . $dir ."/". self::$count . '\" был создан \n';

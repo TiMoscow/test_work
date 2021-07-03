@@ -96,7 +96,7 @@ require($_SERVER["DOCUMENT_ROOT"] . "/templates/header.php");
                                     </div>
 
                                     <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a comment here"  required="" id="floatingTextarea"
+                                <textarea class="form-control" placeholder="Leave a comment here" required="" id="floatingTextarea"
                                           name="text_code"></textarea>
                                         <label for="floatingTextarea">тут код</label>
                                     </div>
