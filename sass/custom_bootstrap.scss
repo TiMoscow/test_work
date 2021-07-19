@@ -1,4 +1,4 @@
-/*# //// custom scss/css v0.1.43 //// */
+/*# //// custom scss/css v0.1.51 //// */
 
 
 ///////////////////////////// fonts START/////////////////////////////
@@ -42,6 +42,9 @@ $custom-color-red-rgba:             rgba(155, 47, 50, 1); // color red (rgba)
 $custom-color-red:                  #9b2f32; // color red (HEX)
 $red:                               #9b2f32; // L>> Replace Color ($red:     #dc3545 !default;)
 $custom-orange:                     $orange-500;
+$tooltip-color:                     $black; // tooltip - color text
+$tooltip-bg:                        $orange; // tooltip - color background
+$tooltip-arrow-color:               $tooltip-bg; // tooltip - color arrow background
 
 ///////////////////////////// creative custom map START/////////////////////////////////////////////
 // creative custom map                                                                            //

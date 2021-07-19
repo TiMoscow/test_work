@@ -10,3 +10,5 @@
 /img/*
 !/img/favicon.ico
 !/img/logo.png
+/config/connection_mysql.php
+/vendor/

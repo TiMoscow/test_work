@@ -1,5 +1,12 @@
 <?php
 require($_SERVER["DOCUMENT_ROOT"] . "/templates/header.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
+
+/**
+ * mobile version definition, with message
+ */
+use timnamespace\Mobile\MobileText;
+$textmobil = new MobileText;
 ?>
 
 <div class="container my-5">
@@ -62,12 +69,16 @@ require($_SERVER["DOCUMENT_ROOT"] . "/templates/header.php");
                                         <i class="bi bi-file-earmark-excel"></i>
                                         Удалить
                                     </button>
-                                    <button type="submit" name="submit_api_open" class="btn btn-outline-custom-theme-custom-orange btn-sm mt-2">
+                                    <button type="submit" name="submit_api_open" class="btn btn-outline-custom-theme-custom-orange btn-sm mt-2" data-bs-toggle="tooltip"
+                                            data-bs-placement="bottom" title="* Открываем одну ссылку!">
                                         <i class="bi bi-box-arrow-in-up"></i>
                                         Открыть *
                                     </button>
                                 </div>
-                                * Открываем одну ссылку!
+                                <?php
+                                $textmobil->setText('* Открываем одну ссылку!');
+                                echo $textmobil->getText();
+                                ?>
                             </div>
                         </div>
                     </form>
@@ -103,10 +114,18 @@ require($_SERVER["DOCUMENT_ROOT"] . "/templates/header.php");
 
                                 </div>
                                 <div class="col-12 col-md-3 d-grid gap-2 h-100 my-2 my-md-0">
-                                    <button type="submit" name="submit_code_create" class="btn btn-outline-custom-theme-custom-orange btn-sm">
-                                        <i class="bi bi-file-earmark-check"></i>
-                                        Создаем
-                                    </button>
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-custom-theme-custom-orange btn-sm dropdown-toggle" id="id_submit_code_create"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-file-earmark-check"></i>
+                                            Создаем
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="id_submit_code_create">
+                                            <li><input type="submit" name="submit_code_create_php" class="dropdown-item" value="Код в: php"></li>
+                                            <li><input type="submit" name="submit_code_create_html" class="dropdown-item" value="Код в: html"></li>
+                                            <li><input type="submit" name="submit_code_create_js" class="dropdown-item" value="Код в: js"></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -141,12 +160,16 @@ require($_SERVER["DOCUMENT_ROOT"] . "/templates/header.php");
                                         <i class="bi bi-file-earmark-excel"></i>
                                         Удалить
                                     </button>
-                                    <button type="submit" name="submit_code_open" class="btn btn-outline-custom-theme-custom-orange btn-sm">
+                                    <button type="submit" name="submit_code_open" class="btn btn-outline-custom-theme-custom-orange btn-sm" data-bs-toggle="tooltip"
+                                            data-bs-placement="bottom" title="* Открываем одну ссылку!">
                                         <i class="bi bi-box-arrow-in-up"></i>
                                         Окрыть *
                                     </button>
                                 </div>
-                                * Открываем одну ссылку!
+                                <?php
+                                $textmobil->setText('* Открываем одну ссылку!');
+                                echo $textmobil->getText();
+                                ?>
                             </div>
                         </div>
                     </form>

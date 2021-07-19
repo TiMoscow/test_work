@@ -7,7 +7,12 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/src/FileOperations/DeleteSafeFile.
 
 use FileOperations\DeleteSafeFile;
 
-if (isset($_POST['submit_api_create']) and isset($_POST['api_file_name']) or isset($_POST['submit_code_create']) and isset($_POST['text_code'])) { // создаем файл с api
+if (isset($_POST['submit_api_create']) and
+    isset($_POST['api_file_name']) or
+    isset($_POST['submit_code_create_php']) or
+    isset($_POST['submit_code_create_html']) or
+    isset($_POST['submit_code_create_js']) or
+    isset($_POST['text_code'])) { // создаем файл с api
 
 
     if (isset($_POST['submit_api_create'])) {
@@ -19,12 +24,25 @@ if (isset($_POST['submit_api_create']) and isset($_POST['api_file_name']) or iss
         header("Location: " . $_SERVER["HTTP_REFERER"]);
         exit;
 
-    } elseif (isset($_POST['submit_code_create'])) {
+    } elseif (
+        isset($_POST['submit_code_create_php']) or
+        isset($_POST['submit_code_create_html']) or
+        isset($_POST['submit_code_create_js'])
+    ) {
         $dir_f = "code";
         $file_name = htmlspecialchars($_POST['name_code']);
-        $text_code = file_get_contents('include/text_code.php', true); // берем код из файла
-        $text_code .= $_POST['text_code'];
-        $arr = DeleteSafeFile::urlSafeFile($dir_f, $file_name, $text_code);
+        if ($_POST['submit_code_create_php']) {
+            $file_extension = 'php';
+        } elseif ($_POST['submit_code_create_html']) {
+            $file_extension = 'html';
+        } elseif ($_POST['submit_code_create_js']) {
+            $file_extension = 'js';
+        } else {
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit;
+        }
+        $text_code = $_POST['text_code'];
+        $arr = DeleteSafeFile::urlSafeFile($dir_f, $file_name, $text_code, $file_extension);
         $_SESSION['message_good'] = $arr;
         header("Location: " . $_SERVER["HTTP_REFERER"]);
         exit;
@@ -38,13 +56,16 @@ if (isset($_POST['submit_api_create']) and isset($_POST['api_file_name']) or iss
         $dir_f = "code";
     }
     if (isset($_POST['submit_api_open']) or isset($_POST['submit_code_open'])) {
-        header("location:".$dir_f."/".$file[0]);
+        header("location:" . $dir_f . "/" . $file[0]);
         exit;
     }
 
-    $arr =  DeleteSafeFile::deliteFile($dir_f, $file);
+    $arr = DeleteSafeFile::deliteFile($dir_f, $file);
 
     $_SESSION['message_good'] = $arr;
+    header("Location: " . $_SERVER["HTTP_REFERER"]);
+    exit;
+} else {
     header("Location: " . $_SERVER["HTTP_REFERER"]);
     exit;
 }

@@ -1,0 +1,17 @@
+{
+  "name": "vendor_name/test_work",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+
+  "autoload": {
+    "psr-4": {
+      "timnamespace\\": "src/"
+    }
+  },
+
+
+  "require": {
+    "mobiledetect/mobiledetectlib": "^2.8"
+  }
+}
