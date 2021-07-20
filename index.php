@@ -6,7 +6,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
  * mobile version definition, with message
  */
 use timnamespace\Mobile\MobileText;
-$textmobil = new MobileText;
 ?>
 
 <div class="container my-5">
@@ -76,8 +75,7 @@ $textmobil = new MobileText;
                                     </button>
                                 </div>
                                 <?php
-                                $textmobil->setText('* Открываем одну ссылку!');
-                                echo $textmobil->getText();
+                                echo MobileText::setGetText('* Открываем одну ссылку!');
                                 ?>
                             </div>
                         </div>
@@ -167,8 +165,7 @@ $textmobil = new MobileText;
                                     </button>
                                 </div>
                                 <?php
-                                $textmobil->setText('* Открываем одну ссылку!');
-                                echo $textmobil->getText();
+                                echo MobileText::setGetText('* Открываем одну ссылку!');
                                 ?>
                             </div>
                         </div>

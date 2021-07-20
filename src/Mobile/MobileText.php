@@ -4,26 +4,22 @@ use Detection\MobileDetect;
 
 class MobileText
 {
-    public string $text_start;
-    public string $text_finish = "";
+    public static string $text_start;
+    public static string $text_finish = "";
 
-    public function setText($text_start = "message")
+    public static function setGetText($text_start = "message"): string
     {
-        $this->text_start = $text_start;
+        self::$text_start = $text_start;
+        return self::mobilText();
     }
 
-    public function getText()
-    {
-        return $this->mobilText();
-    }
-
-    private function mobilText()
+    private static function mobilText(): string
     {
         $detect = new MobileDetect;
         if ($detect->isMobile() or $detect->isTablet()) {
-            $this->text_finish = $this->text_start;
+            self::$text_finish = self::$text_start;
         }
-        return $this->text_finish;
+        return self::$text_finish;
 
     }
 
