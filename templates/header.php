@@ -27,7 +27,8 @@ if (isset($_SESSION['message_good'])) {
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="sass/custom_bootstrap.css" rel="stylesheet" crossorigin="anonymous">
-    <script defer src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" ></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" ></script>
+    <script async src="js/custom.js" ></script>
     <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <nav class="navbar navbar-light bg-light">
