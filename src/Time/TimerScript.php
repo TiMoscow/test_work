@@ -1,40 +1,62 @@
 <?php
-namespace Time;
+
+namespace timnamespace\Time;
+
 /**
  * Класс для измерения времени выполнения скрипта или операций
  */
 class TimerScript
 {
+
     /**
-     * @var float время начала выполнения скрипта
+     * время начала выполнения скрипта
+     * @var
      */
     protected static $start;
     protected static $finish;
 
-//    public function __construct($start, $finish)
-//    {
-//        $this->start = $start;
-//        $this->finish = $finish;
-//    }
     /**
-     * Начало выполнения
+     * Устанавливаем метку $start
      */
     public static function setStart()
     {
         self::$start = microtime(true);
     }
 
+
     /**
-     * Подсчет разницы между текущей меткой времени и меткой self::$start
+     * Подсчет разницы между текущей меткой времени и меткой $start
+     * БЕЗ вывода результатов
      */
-    public static function setFinish()
+    public static function sumFinish()
     {
-        self::$finish = microtime(true) - self::$start;
+        if (self::$finish = microtime(true) - self::$start < 0.0001) {
+            self::$finish = "Слишком быстро! (< 0.0001 сек.)";
+        } else {
+            self::$finish = microtime(true) - self::$start;
+            self::$finish .= ' сек.';
+        }
     }
 
     /**
+     * Подсчет разницы между текущей меткой времени и меткой self::$start
+     * С выводом результатов
+     * @return string
+     */
+    public static function setGetFinish()
+    {
+        if (self::$finish = microtime(true) - self::$start < 0.0001) {
+            return "Слишком быстро! (< 0.0001 сек.)";
+        } else {
+            self::$finish = microtime(true) - self::$start;
+            return self::$finish . ' сек.';
+        }
+    }
+
+
+    /**
      * Вывод результата
-     * @return float
+     * @return string
      */
     public static function getFinish()
     {

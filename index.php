@@ -1,11 +1,12 @@
 <?php
-require($_SERVER["DOCUMENT_ROOT"] . "/templates/header.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . "/templates/header.php");
 
 /**
  * mobile version definition, with message
  */
+
 use timnamespace\Mobile\MobileText;
+
 ?>
 
 <div class="container my-5">
@@ -69,14 +70,12 @@ use timnamespace\Mobile\MobileText;
                                         Удалить
                                     </button>
                                     <button type="submit" name="submit_api_open" class="btn btn-outline-custom-theme-custom-orange btn-sm mt-2" data-bs-toggle="tooltip"
-                                            data-bs-placement="bottom" title="* Открываем одну ссылку!">
+                                            data-bs-placement="bottom" title="Открываем одну ссылку!">
                                         <i class="bi bi-box-arrow-in-up"></i>
-                                        Открыть *
+                                        Открыть <?= MobileText::setGetText('*'); ?>
                                     </button>
                                 </div>
-                                <?php
-                                echo MobileText::setGetText('* Открываем одну ссылку!');
-                                ?>
+                                <?= MobileText::setGetText('* Открываем одну ссылку!'); ?>
                             </div>
                         </div>
                     </form>
@@ -98,12 +97,10 @@ use timnamespace\Mobile\MobileText;
                             </div>
                             <div class="row justify-content-md-center my-3">
                                 <div class="col-12 col-md-9">
-
                                     <div class="mb-3">
                                         <input type="text" name="name_code" class="form-control" id="formGroupExampleInput"
                                                placeholder="Код №1">
                                     </div>
-
                                     <div class="form-floating">
                                 <textarea class="form-control" placeholder="Leave a comment here" required="" id="floatingTextarea"
                                           name="text_code"></textarea>
@@ -123,6 +120,12 @@ use timnamespace\Mobile\MobileText;
                                             <li><input type="submit" name="submit_code_create_html" class="dropdown-item" value="Код в: html"></li>
                                             <li><input type="submit" name="submit_code_create_js" class="dropdown-item" value="Код в: js"></li>
                                         </ul>
+                                    </div>
+                                    <div class="form-check" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Установить таймен на выполнение скрипта">
+                                        <input class="form-check-input" type="checkbox" value="Y" name="timerScript" id="timerScript">
+                                        <label class="form-check-label" for="TimerScript">
+                                            Таймер
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -159,14 +162,12 @@ use timnamespace\Mobile\MobileText;
                                         Удалить
                                     </button>
                                     <button type="submit" name="submit_code_open" class="btn btn-outline-custom-theme-custom-orange btn-sm" data-bs-toggle="tooltip"
-                                            data-bs-placement="bottom" title="* Открываем одну ссылку!">
+                                            data-bs-placement="bottom" title="Открываем одну ссылку!">
                                         <i class="bi bi-box-arrow-in-up"></i>
-                                        Окрыть *
+                                        Окрыть <?= MobileText::setGetText('*'); ?>
                                     </button>
                                 </div>
-                                <?php
-                                echo MobileText::setGetText('* Открываем одну ссылку!');
-                                ?>
+                                <?= MobileText::setGetText('* Открываем одну ссылку!'); ?>
                             </div>
                         </div>
                     </form>

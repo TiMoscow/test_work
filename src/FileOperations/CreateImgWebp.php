@@ -1,5 +1,5 @@
 <?php
-namespace FileOperations;
+namespace timnamespace\FileOperations;
 
 class CreateImgWebp
 {

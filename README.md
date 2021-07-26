@@ -41,17 +41,24 @@ src/Time/TimerScript.php
 | Класс / методы        |   Тип  | Описание
 | --------------------- | ------ | ------------------------------------------------------
 | TimerScript           | Класс  | Класс таймера сриптов.
-| start                 | Метод  | Начпло таймера
-| finish                | Метод  | Конец таймера / Подсчет
-| getFinish             | Метод  | Вывод результатов
+| setStart              | Метод  | Начпло таймера
+| sumFinish             | Метод  | Конец таймера / Подсчет
+| setGetFinish          | Метод  | Конец таймера / Подсчет / Вывод
+| getFinish             | Метод  | Вывод результатов отдельно
 
 Пример:
 ```php
-TimerScript::start(); //Начало таймера
+TimerScript::setStart(); //Начало таймера
 echo 'Хеш: ' . password_hash("пароль", PASSWORD_DEFAULT,["cost" => 11]); // любой скрип
-TimerScript::finish(); // Конец таймера
+TimerScript::setGetFinish(); // Конец таймера/Вывод
+```
+или
+```php
+TimerScript::setStart(); //Начало таймера
+echo 'Хеш: ' . password_hash("пароль", PASSWORD_DEFAULT,["cost" => 11]); // любой скрип
+TimerScript::sumFinish(); // Конец таймера
 
-echo "<br>".TimerScript::getFinish().' сек.'; // вывод результата таймера
+echo "<br>".TimerScript::getFinish().' сек.'; // вывод результата таймера (отдельно)
 ```
 
 ### Сообщения для мобильных устройств
@@ -90,14 +97,14 @@ echo MobileText::setGetText('message');
 * В файле: src/FileOperations/DeleteSafeFile.php
 * Измените на это:
 ```php
-        //$dir    ??= 'temp'; // php ^7.4
-        $dir    = $dir ?? 'temp'; // php ^7.0
-
-        //$text   ??= 'text_stub'; // php ^7.4
-        $text    = $text ?? 'text_stub'; // php ^7.0
+//        $arr_code["dir_f"]    ??= 'temp'; // php ^7.4
+        $arr_code["dir_f"]    = $arr_code["dir_f"] ?? 'temp'; // php ^7.0
         
-        //$file_extension ??= 'php'; // php ^7.4
-        $file_extension    = $file_extension ?? 'php'; // php ^7.0
+//        $arr_code["text_code"]   ??= 'text_stub'; // php ^7.4
+        $arr_code["text_code"]    = $arr_code["text_code"] ?? 'text_stub'; // php ^7.0
+        
+//        $arr_code["file_extension"] ??= 'html'; // php ^7.4
+        $arr_code["file_extension"]    = $arr_code["file_extension"] ?? 'php'; // php ^7.0
 ```
 
 

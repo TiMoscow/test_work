@@ -1,11 +1,13 @@
 <?php
 session_start();
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/src/FileOperations/DeleteSafeFile.php')) {
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/src/FileOperations/DeleteSafeFile.php');
-}
+require_once($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
 
-use FileOperations\DeleteSafeFile;
+/**
+ *
+ */
+use timnamespace\FileOperations\DeleteSafeFile;
+use timnamespace\Time\TimerScript;
 
 if (isset($_POST['submit_api_create']) and
     isset($_POST['api_file_name']) or
@@ -29,20 +31,22 @@ if (isset($_POST['submit_api_create']) and
         isset($_POST['submit_code_create_html']) or
         isset($_POST['submit_code_create_js'])
     ) {
-        $dir_f = "code";
-        $file_name = htmlspecialchars($_POST['name_code']);
+        $arr_code = [];
+        $arr_code["dir_f"] = "code";
+        $arr_code["file_name"] = htmlspecialchars($_POST['name_code']);
         if ($_POST['submit_code_create_php']) {
-            $file_extension = 'php';
+            $arr_code["file_extension"] = 'php';
         } elseif ($_POST['submit_code_create_html']) {
-            $file_extension = 'html';
+            $arr_code["file_extension"] = 'html';
         } elseif ($_POST['submit_code_create_js']) {
-            $file_extension = 'js';
+            $arr_code["file_extension"] = 'js';
         } else {
             header("Location: " . $_SERVER["HTTP_REFERER"]);
             exit;
         }
-        $text_code = $_POST['text_code'];
-        $arr = DeleteSafeFile::urlSafeFile($dir_f, $file_name, $text_code, $file_extension);
+        $arr_code["text_code"] = $_POST['text_code'];
+        $arr_code["timerScript"] = $_POST['timerScript'];
+        $arr = DeleteSafeFile::urlSafeFile($arr_code);
         $_SESSION['message_good'] = $arr;
         header("Location: " . $_SERVER["HTTP_REFERER"]);
         exit;
