@@ -96,11 +96,19 @@ TimerScript::setStart(); ?>' . PHP_EOL;
      * @param $arr_code
      * @return string
      */
-    private static function fileExtension($arr_code) // Перебор расширения файлов  из массива
+    private static function fileExtension($arr_code) // Перебор расширения файлов из массива
     {
 
+        $buttonBack__start = <<<EOD
+ <link href="/sass/custom_bootstrap.css" rel="stylesheet" crossorigin="anonymous">                    
+EOD;
+        $buttonBack_end = <<<EOD
+<br><br><a href="/" class="btn btn-outline-custom-theme-custom-orange btn-sm">Обратно</a>
+EOD;
+
+
         $arr_extension_start = [
-            'php' => '<?php '.PHP_EOL,
+            'php' => $buttonBack__start.PHP_EOL.PHP_EOL.'<?php '.PHP_EOL,
             'html' => '<!doctype html>
             <html lang="en">
             <head>
@@ -108,13 +116,14 @@ TimerScript::setStart(); ?>' . PHP_EOL;
                 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
                 <meta http-equiv="X-UA-Compatible" content="ie=edge">
                 <title>Document</title>
+                '.$buttonBack__start.'
             </head>
             <body>'.PHP_EOL,
             'js' => '<script>'.PHP_EOL
         ];
         $arr_extension_end = [
-            'php' => PHP_EOL.'?>',
-            'html' => PHP_EOL.'</body>
+            'php' => PHP_EOL.'?>'.PHP_EOL.$buttonBack_end,
+            'html' => PHP_EOL.$buttonBack_end.'</body>
 </html>',
             'js' => PHP_EOL.'</script>'
         ];
