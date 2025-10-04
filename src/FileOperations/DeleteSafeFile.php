@@ -71,7 +71,14 @@ class DeleteSafeFile
     {
         if ($arr_code["timerScript"] == "Y") {
             $TimerScriptStart = '<?php 
-require_once($_SERVER["DOCUMENT_ROOT"] . "/vendor/autoload.php");
+// Универсальное подключение autoload.php
+if (php_sapi_name() === "cli") {
+    // Запуск из командной строки (PhpStorm)
+    require_once(__DIR__ . "/../vendor/autoload.php");
+} else {
+    // Запуск через веб-сервер
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/vendor/autoload.php");
+}
 use timnamespace\Time\TimerScript;
 TimerScript::setStart(); ?>' . PHP_EOL;
             $TimerScriptFinish = PHP_EOL .'<?php echo "<br>".TimerScript::setGetFinish(); ?>';

@@ -30,11 +30,11 @@ class TimerScript
      */
     public static function sumFinish()
     {
-        if (self::$finish = microtime(true) - self::$start < 0.0001) {
-            self::$finish = "Слишком быстро! (< 0.0001 сек.)";
+        $elapsed = microtime(true) - self::$start;
+        if ($elapsed < 0.0001) {
+            self::$finish = "Слишком быстро!! (< 0.0001 сек.)";
         } else {
-            self::$finish = microtime(true) - self::$start;
-            self::$finish .= ' сек.';
+            self::$finish = $elapsed . ' сек.';
         }
     }
 
@@ -45,10 +45,12 @@ class TimerScript
      */
     public static function setGetFinish()
     {
-        if (self::$finish = microtime(true) - self::$start < 0.0001) {
-            return "Слишком быстро! (< 0.0001 сек.)";
+        $elapsed = microtime(true) - self::$start;
+        if ($elapsed < 0.0001) {
+            self::$finish = "Слишком быстро! (< 0.0001 сек.)";
+            return self::$finish;
         } else {
-            self::$finish = microtime(true) - self::$start;
+            self::$finish = $elapsed;
             return self::$finish . ' сек.';
         }
     }
